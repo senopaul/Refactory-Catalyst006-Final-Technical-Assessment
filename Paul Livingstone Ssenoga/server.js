@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose')
-require('dotenv/config');
+const dotenv = require("dotenv").config();
 const path =require('path')
 
 //Importing Routes
@@ -27,14 +27,19 @@ app.use('/', patientRoute);
 
 
 //Mongo DB connection
-mongoose.connect(process.env.DATABASE,
-  {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-  });
-  () => console.log('DB connected')
+mongoose.connect(process.env.DATABASE, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+});
 
+mongoose.connection
+  .on("open", () => {
+    console.log("MongoBD is Connected");
+  })
+  .on("error", (err) => {
+    console.log(`Connection error: ${err.message}`);
+  });
 
 
 

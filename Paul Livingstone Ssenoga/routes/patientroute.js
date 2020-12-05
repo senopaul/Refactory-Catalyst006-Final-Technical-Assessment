@@ -4,7 +4,7 @@ const router = express.Router();
 const Patients = require("../models/patientsmodel");
 
 router.get("/register", (req, res) => {
-  res.render("registered", { title: "Patients  Registration Form" });
+  res.render("reg", { title: "Patients  Registration Form" });
 });
 
 router.post("/register", async (req, res) => {
